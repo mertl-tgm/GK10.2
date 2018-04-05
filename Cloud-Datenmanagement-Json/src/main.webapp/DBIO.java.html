@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DBIO.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">TestApp (08.11.2017 21:34:28)</a> &gt; <a href="../../index.html" class="el_group">Cloud-Datenmanagement</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main.webapp</a> &gt; <span class="el_source">DBIO.java</span></div><h1>DBIO.java</h1><pre class="source lang-java linenums">package main.webapp;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.sun.jersey.spi.resource.Singleton;
+
+@Singleton
+<span class="fc" id="L13">public class DBIO {</span>
+<span class="fc" id="L14">	private static DBIO instance = null;</span>
+	private Connection con;
+	
+	public static DBIO getInstance() {
+<span class="fc bfc" id="L18" title="All 2 branches covered.">		if (instance == null) {</span>
+<span class="fc" id="L19">			instance = new DBIO();</span>
+		}
+<span class="fc" id="L21">		return instance;</span>
+	}
+	
+	public void createCon() throws Exception {
+<span class="fc" id="L25">		Class.forName(&quot;org.h2.Driver&quot;);</span>
+<span class="fc" id="L26">		con = DriverManager.getConnection(&quot;jdbc:h2:~/ertldb&quot;, &quot;sa&quot;, &quot;&quot;);</span>
+<span class="fc" id="L27">		createTable();</span>
+<span class="fc" id="L28">	}</span>
+	
+	public void createTable() throws Exception {
+<span class="fc" id="L31">		Statement stmt = con.createStatement(); </span>
+<span class="fc" id="L32">		stmt.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS benutzer(id VARCHAR PRIMARY KEY, vname VARCHAR(255), nname VARCHAR(255), pw VARCHAR(255))&quot;);</span>
+<span class="fc" id="L33">	}</span>
+	
+	public void closeCon() throws Exception {
+<span class="fc" id="L36">		con.close();</span>
+<span class="fc" id="L37">	}</span>
+	
+	public void dropTable() throws Exception {
+<span class="fc" id="L40">		Statement stmt = con.createStatement(); </span>
+<span class="fc" id="L41">		stmt.executeUpdate(&quot;DROP TABLE IF EXISTS benutzer&quot;);</span>
+<span class="fc" id="L42">	}</span>
+	
+	public boolean existsIDAlready(String id) {
+		try {
+<span class="fc" id="L46">			Statement select = con.createStatement();</span>
+<span class="fc" id="L47">			ResultSet res = select.executeQuery(&quot;select * from benutzer where id ='&quot; + id + &quot;'&quot;);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">			if (res.next()) {</span>
+<span class="fc" id="L49">				return true;</span>
+			}
+<span class="fc" id="L51">		} catch (SQLException e) {</span>
+<span class="fc" id="L52">			e.printStackTrace();</span>
+		}
+<span class="fc" id="L54">		return false;</span>
+	}
+	
+	public boolean saveUser(String email, String vorname, String nachname, String pw) {
+<span class="fc" id="L58">		String sql = &quot;insert into benutzer values(?, ?, ?, ?)&quot;;</span>
+		try {
+<span class="fc" id="L60">			PreparedStatement stmt = this.con.prepareStatement(sql);</span>
+<span class="fc" id="L61">			stmt.setString(1, email);</span>
+<span class="fc" id="L62">			stmt.setString(2, vorname);</span>
+<span class="fc" id="L63">			stmt.setString(3, nachname);</span>
+<span class="fc" id="L64">			stmt.setString(4, pw);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">			if (stmt.executeUpdate() != 1) return false;</span>
+<span class="fc" id="L66">		} catch (SQLException e) {</span>
+<span class="fc" id="L67">			e.printStackTrace();</span>
+<span class="fc" id="L68">			return false;</span>
+		}
+<span class="fc" id="L70">		return true;</span>
+	}
+	
+	public ResultSet readUser(String email) {
+		try {
+<span class="fc" id="L75">			Statement stmt = this.con.createStatement();</span>
+<span class="fc" id="L76">			return stmt.executeQuery(&quot;select * from benutzer where id ='&quot; + email + &quot;'&quot;);</span>
+<span class="nc" id="L77">		}catch(SQLException e) {</span>
+<span class="nc" id="L78">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L80">		return null;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>TestApp (08.11.2017 21:34:28)</div></body></html>

@@ -5,24 +5,75 @@
     xmlns:local="using:GK10._2"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    
+    <Page.Resources>
+        <DataTemplate x:Key="DefaultTemplate">
+            <Grid Width="240" Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center">
-            <TextBlock Name="id" Foreground="Black" FontSize="25" Text="" Margin="-40,0,0,0"/>
-            <TextBox Header="Notes" PlaceholderText="Type your notes here" Margin="-40,0,0,0"/>
-        </StackPanel>
-        <StackPanel Grid.ColumnSpan="1" Orientation="Horizontal"
-            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="308,313,308,1153">
-            <TextBlock Foreground="Black" FontSize="25" Text="High: 66°" Margin="0,0,20,0"/>
-            <TextBlock Foreground="Black" FontSize="25" Text="Low: 43°" Margin="0,0,20,0"/>
-            <TextBlock Foreground="Black" FontSize="25" Text="Feels like: 63°"/>
-        </StackPanel>
-    </Grid>
+    <SplitView x:Name="MySplitView" DisplayMode="CompactOverlay"  IsPaneOpen="False" ScrollViewer.VerticalScrollBarVisibility="Visible"
+               CompactPaneLength="50" OpenPaneLength="160" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <SplitView.Pane>
+            <StackPanel Background="Gray">
+                <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
+                    Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE1E2;"
+                    Width="50" Height="50" Background="Transparent"/>
+                    <TextBlock Text="Registrierung" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;"
+                        Width="50" Height="50" Background="Transparent"/>
+                    <TextBlock Text="Login" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton3" FontFamily="Segoe MDL2 Assets" Content="&#xE10A;"
+                        Width="50" Height="50" Background="Transparent" Click="Exit"/>
+                    <TextBlock Text="Beenden" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" Text="Registrierung" Margin="10,0" Height="50" TextWrapping="Wrap" />
+                <TextBox Grid.Row="1" Grid.Column="0" x:Name="vname" Header="Vorname:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <TextBox Grid.Row="2" Grid.Column="0" x:Name="nname" Header="Nachname:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <TextBox Grid.Row="3" Grid.Column="0" x:Name="email" Header="E-Mail:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <PasswordBox Grid.Row="4" Grid.Column="0" x:Name="pw" Header="Passwort:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <PasswordBox Grid.Row="5" Grid.Column="0" x:Name="pwagain" Header="Passwort wiederholen:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <Grid Grid.Row="6" Grid.Column="0" Height="54">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Row="0" Grid.Column="0" Content="Beenden" Click="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="Registrieren" Click="Register" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
+                    </Grid>
+                <WebView Grid.Row="7" Grid.Column="0" x:Name="errormessages" Height="270" Margin="10,0"/>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+
 </Page>

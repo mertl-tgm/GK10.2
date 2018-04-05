@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Login.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">TestApp (08.11.2017 21:34:28)</a> &gt; <a href="../../index.html" class="el_group">Cloud-Datenmanagement</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main.webapp</a> &gt; <span class="el_source">Login.java</span></div><h1>Login.java</h1><pre class="source lang-java linenums">package main.webapp;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path(&quot;/login&quot;)
+public class Login {
+<span class="fc" id="L17">	DBIO db = DBIO.getInstance();</span>
+	private Security sec;
+<span class="fc" id="L19">	private String email = &quot;&quot;;</span>
+<span class="fc" id="L20">	private String errormessage = &quot;&quot;;</span>
+	
+<span class="fc" id="L22">	public Login() {</span>
+<span class="fc" id="L23">		this.sec = new Security();</span>
+<span class="fc" id="L24">	}</span>
+	
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public String login() {
+<span class="fc" id="L29">		String response = &quot;&lt;html&gt;&lt;meta charset='utf-8'&gt;&lt;title&gt;&quot; + &quot;Login&quot; + &quot;&lt;/title&gt;&quot;</span>
+				+ &quot;&lt;body&gt;&quot;
+				+ &quot;&lt;h1&gt;Login&lt;/h1&gt;&quot;
+				+ &quot;&lt;form method='post'&gt;&quot;
+<span class="fc" id="L33">				+ &quot;&lt;p&gt;E-Mail-Adresse: &lt;input type='text' name='email' value='&quot; + this.email + &quot;'&gt;&lt;/p&gt;&quot;</span>
+<span class="fc" id="L34">				+ &quot;&lt;p&gt;Passwort: &lt;input type='password' name='passwort' value=''&gt;&lt;/p&gt;&quot;</span>
+<span class="fc" id="L35">				+ &quot;&lt;p&gt;&lt;input type='submit' value='Submit'&lt;/p&gt;&quot;</span>
+<span class="fc" id="L36">				+ &quot;&lt;/form&gt;&quot;</span>
+<span class="fc" id="L37">				+ &quot;&lt;p&gt;&quot; + this.errormessage + &quot;&lt;/p&gt;&quot;</span>
+<span class="fc" id="L38">				+ &quot;&lt;/body&gt;&lt;/html&gt; &quot;;</span>
+<span class="fc" id="L39">		this.errormessage = &quot;&quot;;</span>
+<span class="fc" id="L40">		return response;</span>
+	}
+	
+	@POST
+	@Produces(MediaType.TEXT_HTML)
+	public String submit(
+			@FormParam(&quot;email&quot;) String email,
+			@FormParam(&quot;passwort&quot;) String passwort
+		) {
+<span class="fc" id="L49">		this.email = email;</span>
+<span class="fc" id="L50">		String vorname = &quot;&quot;;</span>
+<span class="fc" id="L51">		String nachname = &quot;&quot;;</span>
+		
+		//Check if email is valid
+<span class="fc" id="L54">		Pattern pattern = Pattern.compile(&quot;[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;);</span>
+<span class="fc" id="L55">        Matcher mat = pattern.matcher(email);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if(!mat.matches()) {</span>
+<span class="fc" id="L57">        	this.errormessage += &quot;E-Mail hat ein ungültiges Format (max@musterman.at)&lt;br&gt;&quot;;</span>
+<span class="fc" id="L58">        	return this.login();</span>
+        }
+		
+		//reads the benutzer with the same id from the db
+		try {
+<span class="fc" id="L63">			db.getInstance().createCon();</span>
+<span class="fc" id="L64">			ResultSet res = db.getInstance().readUser(email);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">			if (res == null) {</span>
+<span class="nc" id="L66">				this.errormessage += &quot;Fehler beim Abrufen der Datenbank.&lt;br&gt;&quot;;</span>
+<span class="nc" id="L67">				return this.login();</span>
+			}
+			
+			//checks if a benutzer with the id is returned
+<span class="fc bfc" id="L71" title="All 2 branches covered.">			if (!res.next()) {</span>
+<span class="fc" id="L72">				this.errormessage += &quot;E-Mail-Adresse im System nicht vorhanden.&lt;br&gt;&quot;;</span>
+<span class="fc" id="L73">				return this.login();</span>
+			} else {
+				
+				//decrypts the password and compare it to the given one
+<span class="fc" id="L77">				String pw = this.sec.decrypt(res.getString(&quot;pw&quot;));</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">				if (pw.equals(&quot;error&quot;)) {</span>
+<span class="nc" id="L79">					this.errormessage += &quot;Fehler beim Entschlüsseln des Passwortes aufgetreten.&lt;br&gt;&quot;;</span>
+<span class="nc" id="L80">					return this.login();</span>
+				}
+<span class="fc bfc" id="L82" title="All 2 branches covered.">				if (!passwort.equals(pw)) {</span>
+<span class="fc" id="L83">					this.errormessage += &quot;Passwort ist falsch eingegeben worden.&lt;br&gt;&quot;;</span>
+<span class="fc" id="L84">					return this.login();</span>
+				} else {
+<span class="fc" id="L86">					vorname = res.getString(&quot;vname&quot;);</span>
+<span class="fc" id="L87">					nachname = res.getString(&quot;nname&quot;);</span>
+				}
+			}
+<span class="fc" id="L90">			db.getInstance().closeCon();</span>
+<span class="pc" id="L91">		} catch (SQLException e) {</span>
+<span class="nc" id="L92">			e.printStackTrace();</span>
+<span class="fc" id="L93">		} catch (Exception e) {</span>
+<span class="fc" id="L94">			e.printStackTrace();</span>
+		}
+		
+<span class="fc" id="L97">		return 	&quot;&lt;html&gt;&lt;meta charset='utf-8'&gt;&lt;title&gt;&quot; + &quot;Login&quot; + &quot;&lt;/title&gt;&quot;</span>
+		+ &quot;&lt;body&gt;&quot;
+		+ &quot;&lt;h1&gt;Login erfolgreich&lt;/h1&gt;&lt;br&gt;&quot;
+<span class="fc" id="L100">		+ &quot;&lt;p&gt;Willkommen zurück, &quot; + vorname + &quot; &quot; + nachname + &quot;!&lt;/p&gt;&quot;</span>
+<span class="fc" id="L101">		+ &quot;&lt;p&gt;Vorname: &quot; + vorname + &quot;&lt;br&gt;&quot;</span>
+<span class="fc" id="L102">		+ &quot;Nachname: &quot; + nachname + &quot;&lt;br&gt;&quot;</span>
+<span class="fc" id="L103">		+ &quot;E-Mail: &quot; + email + &quot;&lt;/p&gt;&quot;</span>
+<span class="fc" id="L104">		+ &quot;&lt;/body&gt;&lt;/html&gt; &quot;;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>TestApp (08.11.2017 21:34:28)</div></body></html>

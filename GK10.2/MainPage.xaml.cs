@@ -32,14 +32,40 @@ namespace GK10._2
         {
 
         }
+
         public async void GetRequest()
         {
-            Uri geturi = new Uri("http://localhost:8080/ertl/register"); //replace your url  
+            Uri geturi = new Uri("http://localhost:8080/ertl/register"); //replace your url  //Abfangen von Exception
             System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
             System.Net.Http.HttpResponseMessage responseGet = await client.GetAsync(geturi);
             string response = await responseGet.Content.ReadAsStringAsync();
             System.Diagnostics.Debug.WriteLine(response);
-            this.id.Text = response;
+            this.errormessages.NavigateToString(response);
+        }
+
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            System.Diagnostics.Debug.WriteLine("Registrieren");
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+
+            
+
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            System.Diagnostics.Debug.WriteLine("Beenden");
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            Application.Current.Exit();
+        }
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            System.Diagnostics.Debug.WriteLine("Hamburger Menu");
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
     }
