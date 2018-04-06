@@ -25,7 +25,7 @@
                 <Button x:Name="HamburgerButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
                     Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE1E2;"
+                    <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE108;"
                     Width="50" Height="50" Background="Transparent" Click="Logout" />
                     <TextBlock Text="Abmelden" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
@@ -43,14 +43,17 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" Text="Herzlich Willkommen" Margin="10,0" Height="50" TextWrapping="Wrap" />
-             </Grid>
+                <TextBlock Grid.Row="1" Grid.Column="0" x:Name="vname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="2" Grid.Column="0" x:Name="nname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="3" Grid.Column="0" x:Name="email" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
+            </Grid>
         </SplitView.Content>
     </SplitView>
 </Page>

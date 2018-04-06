@@ -27,7 +27,24 @@ namespace GK10._2
             this.InitializeComponent();
         }
 
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            string param = (string)e.Parameter;
+
+            string[] words = param.Split('#');
+
+            foreach (string element in words)
+            {
+                System.Diagnostics.Debug.WriteLine("Param " + element);
+            }
+
+            this.vname.Text = "Vorname: " + words[0];
+            this.nname.Text = "Nachname: " + words[1];
+            this.email.Text = "E-Mail-Adresse: " + words[2];
+        }
+
+            private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }

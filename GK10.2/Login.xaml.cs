@@ -46,10 +46,6 @@ namespace GK10._2
 
         private async void LoginUser(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-            System.Diagnostics.Debug.WriteLine("Login");
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-
             string param = "email=" + this.email.Text + "&pw=" + this.pw.Password;
 
             Uri geturi = new Uri("http://localhost:8080/ertl/login?" + param); //replace your url  //Abfangen von Exception
@@ -77,7 +73,7 @@ namespace GK10._2
                 this.errormessages.NavigateToString(response);
                 // Change to successful register
                 // give vname, nname, email to page
-                Frame.Navigate(typeof(MainPage));
+                Frame.Navigate(typeof(MainPage), (string) result[1]);
                 return;
             }
 
