@@ -25,11 +25,11 @@ public class Register {
 	
 	@GET 
 	@Produces("application/json")
-	public String register(	@QueryParam("vorname") String vorname, 
-							@QueryParam("nachname") String nachname,
+	public String register(	@QueryParam("vname") String vorname, 
+							@QueryParam("nname") String nachname,
 							@QueryParam("email") String email,
-							@QueryParam("passwort") String passwort,
-							@QueryParam("passwort1") String passwort1) throws Exception {
+							@QueryParam("pw") String passwort,
+							@QueryParam("pwagain") String passwort1) throws Exception {
 		String[] response = new String[2];
 		response[0] = "error";
 		response[1] = "";
@@ -129,6 +129,7 @@ public class Register {
 		DBIO.getInstance().closeCon();
 		
 		response[0] = "success";
+		response[1] = vorname + "#" + nachname + "#" + email;
 		return this.gson.toJson(response);
 	}
 	

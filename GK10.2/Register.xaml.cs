@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Json;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x407 dokumentiert.
 
@@ -25,17 +27,18 @@ namespace GK10._2
         public Register()
         {
             this.InitializeComponent();
-            GetRequest();
         }
 
-        private void TitleTextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        private void ChangeToLogin(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(Login));
         }
 
-        public async void GetRequest()
+        private async void RegisterUser(object sender, RoutedEventArgs e)
         {
-            Uri geturi = new Uri("http://localhost:8080/ertl/register"); //replace your url  //Abfangen von Exception
+            string param = "vname=" + this.vname.Text + "&nname=" + this.nname.Text + "&email=" + this.email.Text + "&pw=" + this.pw.Password + "&pwagain=" + this.pwagain.Password;
+
+            Uri geturi = new Uri("http://localhost:8080/ertl/register?" + param); //replace your url  //Abfangen von Exception
             string response = "";
             try
             {
@@ -45,45 +48,34 @@ namespace GK10._2
             }
             catch (System.Net.Http.HttpRequestException)
             {
-                response = "Fehler beim Verbinden mit den Server.";
+                this.errormessages.NavigateToString("Fehler beim Verbinden mit den Server.");
+                return;
             }
-            
-            System.Diagnostics.Debug.WriteLine(response);
-            this.errormessages.NavigateToString(response);
-        }
 
-        private void ChangeToLogin(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-            System.Diagnostics.Debug.WriteLine("Change to Login");
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            Newtonsoft.Json.Linq.JArray result = (Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(response);
+            if (((string)result[0]).Equals("error"))
+            {
+                this.errormessages.NavigateToString((string)result[1]);
+                return;
+            }
+            else if (((string)result[0]).Equals("success"))
+            {
+                this.errormessages.NavigateToString(response);
+                // Change to successful register
+                // give vname, nname, email to page
+                Frame.Navigate(typeof(MainPage));
+                return;
+            }
 
-            Frame.Navigate(typeof(Login));
-
-        }
-
-        private void RegisterUser(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-            System.Diagnostics.Debug.WriteLine("Registrieren");
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-
-            
-
+            this.errormessages.NavigateToString("Fehler beim Verarbeiten der Antwort vom Server.");
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-            System.Diagnostics.Debug.WriteLine("Beenden");
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
             Application.Current.Exit();
         }
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
-            System.Diagnostics.Debug.WriteLine("Hamburger Menu");
-            System.Diagnostics.Debug.WriteLine("----------------------------------");
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 

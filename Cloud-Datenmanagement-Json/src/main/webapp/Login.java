@@ -29,7 +29,7 @@ public class Login {
 	@GET 
 	@Produces("application/json")
 	public String submit(	@QueryParam("email") String email,
-							@QueryParam("passwort") String passwort) {
+							@QueryParam("pw") String passwort) {
 		String[] response = new String[2];
 		response[0] = "error";
 		response[1] = "";
@@ -90,15 +90,8 @@ public class Login {
 			e.printStackTrace();
 		}
 		
-		response[0] += "success";
-		
-		return 	"<html><meta charset='utf-8'><title>" + "Login" + "</title>"
-		+ "<body>"
-		+ "<h1>Login erfolgreich</h1><br>"
-		+ "<p>Willkommen zurück, " + vorname + " " + nachname + "!</p>"
-		+ "<p>Vorname: " + vorname + "<br>"
-		+ "Nachname: " + nachname + "<br>"
-		+ "E-Mail: " + email + "</p>"
-		+ "</body></html> ";
+		response[0] = "success";
+		response[1] = vorname + "#" + nachname + "#" + email;
+		return this.gson.toJson(response);
 	}
 }
