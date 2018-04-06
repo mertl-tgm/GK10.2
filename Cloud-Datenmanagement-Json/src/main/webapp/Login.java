@@ -32,6 +32,7 @@ public class Login {
 							@QueryParam("passwort") String passwort) {
 		String[] response = new String[2];
 		response[0] = "error";
+		response[1] = "";
 		
 		this.email = email;
 		String vorname = "";

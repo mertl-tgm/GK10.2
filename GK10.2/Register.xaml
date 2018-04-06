@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="GK10._2.MainPage"
+    x:Class="GK10._2.Register"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:GK10._2"
@@ -31,7 +31,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE10F;"
-                        Width="50" Height="50" Background="Transparent"/>
+                        Width="50" Height="50" Background="Transparent"  Click="ChangeToLogin"/>
                     <TextBlock Text="Login" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
@@ -69,7 +69,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Content="Beenden" Click="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
-                        <Button Grid.Row="0" Grid.Column="1" Content="Registrieren" Click="Register" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
+                    <Button Grid.Row="0" Grid.Column="1" Content="Registrieren" Click="RegisterUser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
                     </Grid>
                 <WebView Grid.Row="7" Grid.Column="0" x:Name="errormessages" Height="270" Margin="10,0"/>
             </Grid>

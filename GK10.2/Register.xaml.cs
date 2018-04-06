@@ -20,9 +20,9 @@ namespace GK10._2
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class Register : Page
     {
-        public MainPage()
+        public Register()
         {
             this.InitializeComponent();
             GetRequest();
@@ -36,14 +36,33 @@ namespace GK10._2
         public async void GetRequest()
         {
             Uri geturi = new Uri("http://localhost:8080/ertl/register"); //replace your url  //Abfangen von Exception
-            System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-            System.Net.Http.HttpResponseMessage responseGet = await client.GetAsync(geturi);
-            string response = await responseGet.Content.ReadAsStringAsync();
+            string response = "";
+            try
+            {
+                System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+                System.Net.Http.HttpResponseMessage responseGet = await client.GetAsync(geturi);
+                response = await responseGet.Content.ReadAsStringAsync();
+            }
+            catch (System.Net.Http.HttpRequestException)
+            {
+                response = "Fehler beim Verbinden mit den Server.";
+            }
+            
             System.Diagnostics.Debug.WriteLine(response);
             this.errormessages.NavigateToString(response);
         }
 
-        private void Register(object sender, RoutedEventArgs e)
+        private void ChangeToLogin(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+            System.Diagnostics.Debug.WriteLine("Change to Login");
+            System.Diagnostics.Debug.WriteLine("----------------------------------");
+
+            Frame.Navigate(typeof(Login));
+
+        }
+
+        private void RegisterUser(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("----------------------------------");
             System.Diagnostics.Debug.WriteLine("Registrieren");

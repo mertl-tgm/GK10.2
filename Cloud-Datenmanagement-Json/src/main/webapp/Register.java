@@ -32,6 +32,7 @@ public class Register {
 							@QueryParam("passwort1") String passwort1) throws Exception {
 		String[] response = new String[2];
 		response[0] = "error";
+		response[1] = "";
 	
 		this.vorname = vorname;
 		this.nachname = nachname;
