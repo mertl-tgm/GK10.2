@@ -48,8 +48,7 @@ namespace GK10._2
         {
             string param = "email=" + this.email.Text + "&pw=" + this.pw.Password;
 
-            Uri geturi = new Uri("https://gk10-2-ertl.herokuapp.com/ertl/login?" + param);
-            //Uri geturi = new Uri("http://localhost:8080/ertl/login?" + param); //replace your url  //Abfangen von Exception
+            Uri geturi = new Uri("http://37.252.185.24:8080/ertl/login?" + param); //replace your url  //Abfangen von Exception
             string response = "";
             try
             {
@@ -72,8 +71,6 @@ namespace GK10._2
             else if (((string)result[0]).Equals("success"))
             {
                 this.errormessages.NavigateToString(response);
-                // Change to successful register
-                // give vname, nname, email to page
                 Frame.Navigate(typeof(MainPage), (string) result[1]);
                 return;
             }
