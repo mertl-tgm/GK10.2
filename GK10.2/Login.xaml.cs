@@ -48,7 +48,8 @@ namespace GK10._2
         {
             string param = "email=" + this.email.Text + "&pw=" + this.pw.Password;
 
-            Uri geturi = new Uri("http://localhost:8080/ertl/login?" + param); //replace your url  //Abfangen von Exception
+            Uri geturi = new Uri("https://gk10-2-ertl.herokuapp.com/ertl/login?" + param);
+            //Uri geturi = new Uri("http://localhost:8080/ertl/login?" + param); //replace your url  //Abfangen von Exception
             string response = "";
             try
             {

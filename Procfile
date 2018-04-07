@@ -1,1 +1,0 @@
-web: mvn -f /Cloud-Datenmanagement-Json/pom.xml tomcat7:run-war
