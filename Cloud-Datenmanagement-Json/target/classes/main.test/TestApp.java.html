@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="de"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TestApp.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">TestApp (08.11.2017 21:34:28)</a> &gt; <a href="../../index.html" class="el_group">Cloud-Datenmanagement</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main.test</a> &gt; <span class="el_source">TestApp.java</span></div><h1>TestApp.java</h1><pre class="source lang-java linenums">package main.test;
+
+import org.junit.Test;
+
+import main.webapp.DBIO;
+import main.webapp.Login;
+import main.webapp.Register;
+import main.webapp.Security;
+
+<span class="fc" id="L10">public class TestApp {</span>
+	
+	@Test
+	public void testRegisterConstructor() {
+<span class="fc" id="L14">		new Register();</span>
+<span class="fc" id="L15">	}</span>
+	
+	@Test
+	public void testRegisterRegister() {
+<span class="fc" id="L19">		new Register().register();</span>
+<span class="fc" id="L20">	}</span>
+	
+	@Test
+	public void testRegisterSubmitEmptyInput() throws Exception {
+<span class="fc" id="L24">		new Register().submit(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L25">	}</span>
+	
+	@Test
+	public void testRegisterSubmitInvalidNameInput() throws Exception {
+<span class="fc" id="L29">		new Register().submit(&quot;abc123&quot;, &quot;a1b2c&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L30">	}</span>
+	
+	@Test
+	public void testRegisterSubmitValidNameInput() throws Exception {
+<span class="fc" id="L34">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L35">	}</span>
+	
+	@Test
+	public void testRegisterSubmitInvalidEMailInput1() throws Exception {
+<span class="fc" id="L39">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;a@b.c&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L40">	}</span>
+	
+	@Test
+	public void testRegisterSubmitInvalidEMailInput2() throws Exception {
+<span class="fc" id="L44">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;ab.c&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L45">	}</span>
+	
+	@Test
+	public void testRegisterSubmitInvalidEMailInput3() throws Exception {
+<span class="fc" id="L49">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;abc.asd.123&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L50">	}</span>
+	
+	@Test
+	public void testRegisterSubmitValidEMailInput() throws Exception {
+<span class="fc" id="L54">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L55">	}</span>
+	
+	@Test
+	public void testRegisterSubmitNotSamePasswort() throws Exception {
+<span class="fc" id="L59">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123&quot;, &quot;1234&quot;);</span>
+<span class="fc" id="L60">	}</span>
+	
+	@Test
+	public void testRegisterSubmitNotSamePasswort2() throws Exception {
+<span class="fc" id="L64">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123456&quot;, &quot;12345&quot;);</span>
+<span class="fc" id="L65">	}</span>
+	
+	@Test
+	public void testRegisterSubmitTooShortPasswort() throws Exception {
+<span class="fc" id="L69">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L70">	}</span>
+	
+	@Test
+	public void testRegisterSubmitValidInput() throws Exception {
+<span class="fc" id="L74">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123abc&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L75">	}</span>
+	
+	@Test
+	public void testDBIO() {
+<span class="fc" id="L79">		new DBIO().getInstance();</span>
+<span class="fc" id="L80">	}</span>
+	
+	@Test
+	public void testDBIOCreateCon() throws Exception {
+<span class="fc" id="L84">		new DBIO().getInstance().createCon();</span>
+<span class="fc" id="L85">	}</span>
+	
+	@Test
+	public void testDBIOCreateTable() throws Exception {
+<span class="fc" id="L89">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L90">		db.getInstance().createCon();</span>
+<span class="fc" id="L91">		db.getInstance().dropTable();</span>
+<span class="fc" id="L92">		db.getInstance().createTable();</span>
+<span class="fc" id="L93">	}</span>
+	
+	@Test
+	public void testDBIOCloseCon() throws Exception {
+<span class="fc" id="L97">		new DBIO().getInstance().closeCon();</span>
+<span class="fc" id="L98">	}</span>
+	
+	@Test
+	public void testDBIODropTable() throws Exception {
+<span class="fc" id="L102">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L103">		db.getInstance().createCon();</span>
+<span class="fc" id="L104">		db.getInstance().dropTable();</span>
+<span class="fc" id="L105">		db.getInstance().closeCon();</span>
+<span class="fc" id="L106">	}</span>
+	
+	@Test
+	public void testDBIOSaveUser1() throws Exception {
+<span class="fc" id="L110">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L111">		db.getInstance().createCon();</span>
+<span class="fc" id="L112">		db.getInstance().dropTable();</span>
+<span class="fc" id="L113">		db.getInstance().createTable();</span>
+<span class="fc" id="L114">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L115">		db.getInstance().closeCon();</span>
+<span class="fc" id="L116">	}</span>
+	
+	
+	@Test
+	public void testDBIOExistsSaveUser2() throws Exception {
+<span class="fc" id="L121">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L122">		db.getInstance().createCon();</span>
+<span class="fc" id="L123">		db.getInstance().dropTable();</span>
+<span class="fc" id="L124">		db.getInstance().createTable();</span>
+<span class="fc" id="L125">		db.getInstance().saveUser(null, null, null, null);</span>
+<span class="fc" id="L126">		db.getInstance().closeCon();</span>
+<span class="fc" id="L127">	}</span>
+	
+	@Test
+	public void testDBIOExistsIDAlready() throws Exception {
+<span class="fc" id="L131">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L132">		db.getInstance().createCon();</span>
+<span class="fc" id="L133">		db.getInstance().dropTable();</span>
+<span class="fc" id="L134">		db.getInstance().createTable();</span>
+<span class="fc" id="L135">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L136">		db.getInstance().existsIDAlready(&quot;mertl@student.tgm.ac.at&quot;);</span>
+<span class="fc" id="L137">		db.getInstance().closeCon();</span>
+<span class="fc" id="L138">	}</span>
+	
+	@Test
+	public void testDBIOExistsIDAlreadyNoTable() throws Exception {
+<span class="fc" id="L142">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L143">		db.getInstance().createCon();</span>
+<span class="fc" id="L144">		db.getInstance().dropTable();</span>
+<span class="fc" id="L145">		db.getInstance().existsIDAlready(&quot;mertl@student.tgm.ac.at&quot;);</span>
+<span class="fc" id="L146">		db.getInstance().closeCon();</span>
+<span class="fc" id="L147">	}</span>
+	
+	@Test
+	public void testDBIOReadUser() throws Exception {
+<span class="fc" id="L151">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L152">		db.getInstance().createCon();</span>
+<span class="fc" id="L153">		db.getInstance().dropTable();</span>
+<span class="fc" id="L154">		db.getInstance().createTable();</span>
+<span class="fc" id="L155">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L156">		db.getInstance().readUser(&quot;mertl@student.tgm.ac.at&quot;);</span>
+<span class="fc" id="L157">		db.getInstance().closeCon();</span>
+<span class="fc" id="L158">	}</span>
+	
+	@Test
+	public void testRegisterSameEMail() throws Exception {
+<span class="fc" id="L162">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L163">		db.getInstance().createCon();</span>
+<span class="fc" id="L164">		db.getInstance().createTable();</span>
+<span class="fc" id="L165">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L166">		db.getInstance().closeCon();</span>
+<span class="fc" id="L167">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123abc&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L168">	}</span>
+	
+	@Test
+	public void testRegisterValidInput() throws Exception {
+<span class="fc" id="L172">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L173">		db.getInstance().createCon();</span>
+<span class="fc" id="L174">		db.getInstance().dropTable();</span>
+<span class="fc" id="L175">		db.getInstance().createTable();</span>
+<span class="fc" id="L176">		db.getInstance().closeCon();</span>
+<span class="fc" id="L177">		new Register().submit(&quot;Marvin&quot;, &quot;Ertl&quot;, &quot;mertl@student.tgm.ac.at&quot;, &quot;123abc&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L178">	}</span>
+	
+	@Test
+	public void testLoginConstructor() throws Exception {
+<span class="fc" id="L182">		new Login();</span>
+<span class="fc" id="L183">	}</span>
+	
+	@Test
+	public void testLoginLogin() throws Exception {
+<span class="fc" id="L187">		new Login().login();</span>
+<span class="fc" id="L188">	}</span>
+	
+	@Test
+	public void testLoginSubmitEmptyInput() throws Exception {
+<span class="fc" id="L192">		new Login().submit(&quot;&quot;, &quot;&quot;);</span>
+<span class="fc" id="L193">	}</span>
+	
+	@Test
+	public void testLoginSubmitValidEMailInput() throws Exception {
+<span class="fc" id="L197">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L198">		db.getInstance().createCon();</span>
+<span class="fc" id="L199">		db.getInstance().dropTable();</span>
+<span class="fc" id="L200">		db.getInstance().createTable();</span>
+<span class="fc" id="L201">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;123abc&quot;);</span>
+<span class="fc" id="L202">		db.getInstance().closeCon();</span>
+<span class="fc" id="L203">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;&quot;);</span>
+<span class="fc" id="L204">	}</span>
+	
+	@Test
+	public void testLoginSubmitInvalidEMailInput() throws Exception {
+<span class="fc" id="L208">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L209">		db.getInstance().createCon();</span>
+<span class="fc" id="L210">		db.getInstance().dropTable();</span>
+<span class="fc" id="L211">		db.getInstance().createTable();</span>
+<span class="fc" id="L212">		db.getInstance().closeCon();</span>
+<span class="fc" id="L213">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;&quot;);</span>
+<span class="fc" id="L214">	}</span>
+	
+	@Test
+	public void testLoginSubmitRightPasswordInput() throws Exception {
+<span class="fc" id="L218">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L219">		db.getInstance().createCon();</span>
+<span class="fc" id="L220">		db.getInstance().dropTable();</span>
+<span class="fc" id="L221">		db.getInstance().createTable();</span>
+<span class="fc" id="L222">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, new Security().encrypt(&quot;abc123&quot;));</span>
+<span class="fc" id="L223">		db.getInstance().closeCon();</span>
+<span class="fc" id="L224">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;abc123&quot;);</span>
+<span class="fc" id="L225">	}</span>
+	
+	@Test
+	public void testLoginSubmitFalsePasswordInput1() throws Exception {
+<span class="fc" id="L229">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L230">		db.getInstance().createCon();</span>
+<span class="fc" id="L231">		db.getInstance().dropTable();</span>
+<span class="fc" id="L232">		db.getInstance().createTable();</span>
+<span class="fc" id="L233">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, new Security().encrypt(&quot;abc123&quot;));</span>
+<span class="fc" id="L234">		db.getInstance().closeCon();</span>
+<span class="fc" id="L235">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L236">	}</span>
+	
+	@Test
+	public void testLoginSubmitFalsePasswordInput2() throws Exception {
+<span class="fc" id="L240">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L241">		db.getInstance().createCon();</span>
+<span class="fc" id="L242">		db.getInstance().dropTable();</span>
+<span class="fc" id="L243">		db.getInstance().createTable();</span>
+<span class="fc" id="L244">		db.getInstance().saveUser(&quot;mertl@student.tgm.ac.at&quot;, &quot;Marvin&quot;, &quot;Ertl&quot;, &quot;abc123&quot;);</span>
+<span class="fc" id="L245">		db.getInstance().closeCon();</span>
+<span class="fc" id="L246">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L247">	}</span>
+	
+	@Test
+	public void testLoginSubmitNoTable() throws Exception {
+<span class="fc" id="L251">		DBIO db = DBIO.getInstance();</span>
+<span class="fc" id="L252">		db.getInstance().createCon();</span>
+<span class="fc" id="L253">		db.getInstance().dropTable();</span>
+<span class="fc" id="L254">		db.getInstance().closeCon();</span>
+<span class="fc" id="L255">		new Login().submit(&quot;mertl@student.tgm.ac.at&quot;, &quot;123&quot;);</span>
+<span class="fc" id="L256">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span>TestApp (08.11.2017 21:34:28)</div></body></html>
