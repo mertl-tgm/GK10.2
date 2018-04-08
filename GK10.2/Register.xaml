@@ -58,11 +58,11 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" Text="Registrierung" Margin="10,0" Height="50" TextWrapping="Wrap" />
-                <TextBox Grid.Row="1" Grid.Column="0" x:Name="vname" Header="Vorname:" PlaceholderText="Type your notes here" Margin="10,0"/>
-                <TextBox Grid.Row="2" Grid.Column="0" x:Name="nname" Header="Nachname:" PlaceholderText="Type your notes here" Margin="10,0"/>
-                <TextBox Grid.Row="3" Grid.Column="0" x:Name="email" Header="E-Mail:" PlaceholderText="Type your notes here" Margin="10,0"/>
-                <PasswordBox Grid.Row="4" Grid.Column="0" x:Name="pw" Header="Passwort:" PlaceholderText="Type your notes here" Margin="10,0"/>
-                <PasswordBox Grid.Row="5" Grid.Column="0" x:Name="pwagain" Header="Passwort wiederholen:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <TextBox Grid.Row="1" Grid.Column="0" x:Name="vname" Header="Vorname:" PlaceholderText="Max" Margin="10,0"/>
+                <TextBox Grid.Row="2" Grid.Column="0" x:Name="nname" Header="Nachname:" PlaceholderText="Mustermann" Margin="10,0"/>
+                <TextBox Grid.Row="3" Grid.Column="0" x:Name="email" Header="E-Mail:" PlaceholderText="max@mustermann.com" Margin="10,0"/>
+                <PasswordBox Grid.Row="4" Grid.Column="0" x:Name="pw" Header="Passwort:" PlaceholderText="Passwort" Margin="10,0"/>
+                <PasswordBox Grid.Row="5" Grid.Column="0" x:Name="pwagain" Header="Passwort wiederholen:" PlaceholderText="Passwort wiederholen" Margin="10,0"/>
                 <Grid Grid.Row="6" Grid.Column="0" Height="54">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

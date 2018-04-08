@@ -55,8 +55,8 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" Text="Login" Margin="10,0" Height="50" TextWrapping="Wrap" />
-               <TextBox Grid.Row="1" Grid.Column="0" x:Name="email" Header="E-Mail:" PlaceholderText="Type your notes here" Margin="10,0"/>
-                <PasswordBox Grid.Row="2" Grid.Column="0" x:Name="pw" Header="Passwort:" PlaceholderText="Type your notes here" Margin="10,0"/>
+                <TextBox Grid.Row="1" Grid.Column="0" x:Name="email" Header="E-Mail:" PlaceholderText="max@mustermann.com" Margin="10,0"/>
+                <PasswordBox Grid.Row="2" Grid.Column="0" x:Name="pw" Header="Passwort:" PlaceholderText="Passwort" Margin="10,0"/>
                 <Grid Grid.Row="3" Grid.Column="0" Height="54">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

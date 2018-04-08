@@ -77,4 +77,14 @@ public class DBIO {
 		}
 		return null;
 	}
+
+	public boolean deleteUser(String email) {
+		try {
+			Statement stmt = this.con.createStatement();
+			return stmt.execute("delete from benutzer where id ='" + email + "'");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

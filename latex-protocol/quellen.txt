@@ -1,0 +1,11 @@
+https://github.com/appium/sample-code/tree/master/sample-code/examples
+
+http://appium.io/
+
+https://github.com/appium/appium-desktop/tree/v1.5.0
+
+https://github.com/Microsoft/WinAppDriver/releases
+
+http://appium.io/docs/en/about-appium/getting-started/index.html#verifying-the-installation
+
+https://medium.com/@yostane/automated-ui-testing-of-a-uwp-app-using-appium-dc10d8df6631

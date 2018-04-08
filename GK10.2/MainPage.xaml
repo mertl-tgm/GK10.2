@@ -49,7 +49,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" Text="Herzlich Willkommen" Margin="10,0" Height="50" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="0" Grid.Column="0" Foreground="Black" FontSize="25" x:Name="header" Text="Herzlich Willkommen" Margin="10,0" Height="50" TextWrapping="Wrap" />
                 <TextBlock Grid.Row="1" Grid.Column="0" x:Name="vname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
                 <TextBlock Grid.Row="2" Grid.Column="0" x:Name="nname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
                 <TextBlock Grid.Row="3" Grid.Column="0" x:Name="email" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
