@@ -30,6 +30,11 @@
                     <TextBlock Text="Abmelden" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
+                    <Button x:Name="MenuButton2" FontFamily="Segoe MDL2 Assets" Content="&#xE107;"
+                    Width="50" Height="50" Background="Transparent" Click="DeleteUser" />
+                    <TextBlock Text="Löschen" FontSize="18" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton3" FontFamily="Segoe MDL2 Assets" Content="&#xE10A;"
                         Width="50" Height="50" Background="Transparent" Click="Exit"/>
                     <TextBlock Text="Beenden" FontSize="18" VerticalAlignment="Center" />
@@ -53,6 +58,7 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" x:Name="vname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
                 <TextBlock Grid.Row="2" Grid.Column="0" x:Name="nname" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
                 <TextBlock Grid.Row="3" Grid.Column="0" x:Name="email" Foreground="Black" Margin="10,0" Height="50" TextWrapping="Wrap" />
+                <WebView Grid.Row="4" Grid.Column="0" x:Name="errormessages" Height="270" Margin="10,42,10,158"/>
             </Grid>
         </SplitView.Content>
     </SplitView>

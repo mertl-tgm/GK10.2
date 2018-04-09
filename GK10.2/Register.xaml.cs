@@ -26,7 +26,7 @@ namespace GK10._2
         {
             string param = "vname=" + this.vname.Text + "&nname=" + this.nname.Text + "&email=" + this.email.Text + "&pw=" + this.pw.Password + "&pwagain=" + this.pwagain.Password;
 
-            Uri geturi = new Uri("http://37.252.185.24:8080/ertl/register?" + param); //replace your url  //Abfangen von Exception
+            Uri geturi = new Uri("http://37.252.185.24:8080/ertl/register?" + param);
             string response = "";
             try
             {
