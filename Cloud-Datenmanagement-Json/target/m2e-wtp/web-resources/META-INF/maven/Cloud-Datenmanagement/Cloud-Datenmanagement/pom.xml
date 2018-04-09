@@ -87,23 +87,6 @@
 			<version>2.4</version>
 		</dependency>
 		 -->
-		 <dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
-		<dependency>
-		    <groupId>org.glassfish.jersey.containers</groupId>
-		    <artifactId>jersey-container-servlet</artifactId>
-		    <version>2.26</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.glassfish.jersey.inject</groupId>
-		    <artifactId>jersey-hk2</artifactId>
-		    <version>2.26</version>
-		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

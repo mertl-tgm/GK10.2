@@ -5,19 +5,17 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
 @Path("/login")
 public class Login {
 	private Security sec;
+	private String email = "";
 	private Gson gson;
 	
 	public Login() {
@@ -33,6 +31,7 @@ public class Login {
 		response[0] = "error";
 		response[1] = "";
 		
+		this.email = email;
 		String vorname = "";
 		String nachname = "";
 		
