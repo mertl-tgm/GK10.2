@@ -12,6 +12,7 @@ namespace GK10._2
     /// </summary>
     public sealed partial class Login : Page
     {
+
         public Login()
         {
             this.InitializeComponent();

@@ -27,8 +27,42 @@ namespace Testing
     {
 
         [TestMethod]
+        public void Register()
+        {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+
+            session.FindElementByName("Vorname:").Click();
+            session.FindElementByName("Vorname:").SendKeys("Marvin");
+            session.FindElementByName("Nachname:").Click();
+            session.FindElementByName("Nachname:").SendKeys("Ertl");
+            session.FindElementByName("E-Mail:").Click();
+            session.FindElementByName("E-Mail:").SendKeys("abc@def.com");
+            session.FindElementByName("Passwort:").Click();
+            session.FindElementByName("Passwort:").SendKeys("12345");
+            session.FindElementByName("Passwort wiederholen:").Click();
+            session.FindElementByName("Passwort wiederholen:").SendKeys("12345");
+            session.FindElementByXPath("//Button[@Name='Registrieren']").Click();
+            Thread.Sleep(2000);
+
+            Assert.AreEqual("Herzlich Willkommen", session.FindElementByName("Herzlich Willkommen").Text);
+        }
+
+        [TestMethod]
+        public void Logout()
+        {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+
+            Assert.AreEqual("Login", session.FindElementByName("Login").Text);
+        }
+
+        [TestMethod]
         public void Login()
         {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+
             session.FindElementByName("E-Mail:").Click();
             session.FindElementByName("E-Mail:").SendKeys("abc@def.com");
             session.FindElementByName("Passwort:").Click();
@@ -39,57 +73,34 @@ namespace Testing
         }
 
         [TestMethod]
-        public void Register()
+        public void DeleteUser()
         {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+
+            Assert.AreEqual("Login", session.FindElementByName("Login").Text);
+        }
+
+        [TestMethod]
+        public void RegisterExistingUser()
+        {
+
+            Register();
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+            session.FindElementByName("Vorname:").Click();
+            session.FindElementByName("Vorname:").SendKeys("Marvin");
+            session.FindElementByName("Nachname:").Click();
+            session.FindElementByName("Nachname:").SendKeys("Ertl");
             session.FindElementByName("E-Mail:").Click();
             session.FindElementByName("E-Mail:").SendKeys("abc@def.com");
             session.FindElementByName("Passwort:").Click();
             session.FindElementByName("Passwort:").SendKeys("12345");
+            session.FindElementByName("Passwort wiederholen:").Click();
+            session.FindElementByName("Passwort wiederholen:").SendKeys("12345");
+            session.FindElementByXPath("//Button[@Name='Registrieren']").Click();
 
-            // Find the buttons by their accessibility ids and click them in sequence to perform 88 / 11 = 8
-            session.FindElementByAccessibilityId("num8Button").Click();
-            session.FindElementByAccessibilityId("num8Button").Click();
-            session.FindElementByAccessibilityId("divideButton").Click();
-            session.FindElementByAccessibilityId("num1Button").Click();
-            session.FindElementByAccessibilityId("num1Button").Click();
-            session.FindElementByAccessibilityId("equalButton").Click();
-            Assert.AreEqual("8", session.FindElementByAccessibilityId("header").Text);
-        }
-
-        [TestMethod]
-        public void Multiplication()
-        {
-            // Find the buttons by their names using XPath and click them in sequence to perform 9 x 9 = 81
-            session.FindElementByXPath("//Button[@Name='Nine']").Click();
-            session.FindElementByXPath("//Button[@Name='Multiply by']").Click();
-            session.FindElementByXPath("//Button[@Name='Nine']").Click();
-            session.FindElementByXPath("//Button[@Name='Equals']").Click();
-            //Assert.AreEqual("81", GetCalculatorResultText());
-        }
-
-        [TestMethod]
-        public void Subtraction()
-        {
-            // Find the buttons by their accessibility ids using XPath and click them in sequence to perform 9 - 1 = 8
-            session.FindElementByXPath("//Button[@AutomationId=\"num9Button\"]").Click();
-            session.FindElementByXPath("//Button[@AutomationId=\"minusButton\"]").Click();
-            session.FindElementByXPath("//Button[@AutomationId=\"num1Button\"]").Click();
-            session.FindElementByXPath("//Button[@AutomationId=\"equalButton\"]").Click();
-            //Assert.AreEqual("8", GetCalculatorResultText());
-        }
-
-        [TestMethod]
-        [DataRow("One",   "Plus",      "Seven", "8")]
-        [DataRow("Nine",  "Minus",     "One",   "8")]
-        [DataRow("Eight", "Divide by", "Eight", "1")]
-        public void Templatized(string input1, string operation, string input2, string expectedResult)
-        {
-            // Run sequence of button presses specified above and validate the results
-            session.FindElementByName(input1).Click();
-            session.FindElementByName(operation).Click();
-            session.FindElementByName(input2).Click();
-            session.FindElementByName("Equals").Click();
-            //Assert.AreEqual(expectedResult, GetCalculatorResultText());
+            Assert.AreEqual("E-Mail-Adresse bereits im System vorhanden.", session.FindElementByName("E-Mail-Adresse bereits im System vorhanden.").Text);
         }
 
         [ClassInitialize]

@@ -24,13 +24,7 @@ namespace GK10._2
         {
             base.OnNavigatedTo(e);
             string param = (string)e.Parameter;
-            System.Diagnostics.Debug.WriteLine("response " + param);
             string[] words = param.Split('#');
-
-            foreach (string element in words)
-            {
-                System.Diagnostics.Debug.WriteLine("Param " + element);
-            }
 
             this.vname.Text = "Vorname: " + words[0];
             this.nname.Text = "Nachname: " + words[1];

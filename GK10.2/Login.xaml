@@ -26,7 +26,7 @@
                     Width="50" Height="50" Background="Transparent" Click="HamburgerButton_Click"/>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="MenuButton1" FontFamily="Segoe MDL2 Assets" Content="&#xE1E2;"
-                    Width="50" Height="50" Background="Transparent" Click="ChangeToRegister" />
+                    Width="50" Height="50" Background="Transparent" Click="ChangeToRegister" Tag="MenuButton1"/>
                     <TextBlock Text="Registrierung" FontSize="18" VerticalAlignment="Center" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
