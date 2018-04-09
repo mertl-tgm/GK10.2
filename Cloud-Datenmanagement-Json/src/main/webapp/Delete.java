@@ -24,9 +24,9 @@ public class Delete {
 		
 		//check if email(primary key) is already in db
 		DBIO.getInstance().createCon();
-		if (DBIO.getInstance().existsIDAlready(email)) {
+		if (!DBIO.getInstance().existsIDAlready(email)) {
 			DBIO.getInstance().closeCon();
-			response[1] += "E-Mail-Adresse bereits im System vorhanden.<br>";
+			response[1] += "E-Mail-Adresse nicht im System vorhanden.<br>";
 			return this.gson.toJson(response);
 		}
 		if (!DBIO.getInstance().deleteUser(email)) {
