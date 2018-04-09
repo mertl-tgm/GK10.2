@@ -81,7 +81,8 @@ public class DBIO {
 	public boolean deleteUser(String email) {
 		try {
 			Statement stmt = this.con.createStatement();
-			return stmt.execute("delete from benutzer where id ='" + email + "'");
+			stmt.execute("delete from benutzer where id ='" + email + "'");
+			return true;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

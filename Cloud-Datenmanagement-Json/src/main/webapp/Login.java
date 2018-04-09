@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 @Path("/login")
 public class Login {
 	private Security sec;
-	private String email = "";
 	private Gson gson;
 	
 	public Login() {
@@ -34,7 +33,6 @@ public class Login {
 		response[0] = "error";
 		response[1] = "";
 		
-		this.email = email;
 		String vorname = "";
 		String nachname = "";
 		
