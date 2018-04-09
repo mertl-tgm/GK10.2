@@ -17,7 +17,7 @@ public class Delete {
 	
 	@GET 
 	@Produces("application/json")
-	public String submit(	@QueryParam("email") String email) throws Exception {
+	public String submit(@QueryParam("email") String email) throws Exception {
 		String[] response = new String[2];
 		response[0] = "error";
 		response[1] = "";
