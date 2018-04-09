@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -12,10 +13,20 @@ namespace GK10._2
     /// </summary>
     public sealed partial class Login : Page
     {
+        private Param param;
 
         public Login()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            this.param = new Param();
+            this.param.App = (App)e.Parameter;
+            
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
@@ -30,13 +41,12 @@ namespace GK10._2
 
         private void ChangeToRegister(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Register));
-
+            Frame.Navigate(typeof(Register), this.param.App);
         }
 
         private async void LoginUser(object sender, RoutedEventArgs e)
         {
-            string param = "email=" + this.email.Text + "&pw=" + this.pw.Password;
+            string param = "email=" + this.email.Text + "&pw=" + this.param.App.HashPW(this.pw.Password);
 
             Uri geturi = new Uri("http://37.252.185.24:8080/ertl/login?" + param);
             string response = "";
@@ -61,12 +71,13 @@ namespace GK10._2
             else if (((string)result[0]).Equals("success"))
             {
                 this.errormessages.NavigateToString(response);
-                Frame.Navigate(typeof(MainPage), (string) result[1]);
+
+                this.param.Text = (string)result[1];
+                Frame.Navigate(typeof(MainPage), this.param);
                 return;
             }
 
             this.errormessages.NavigateToString("Fehler beim Verarbeiten der Antwort vom Server." + response);
-
         }
     }
 }

@@ -13,6 +13,7 @@ namespace GK10._2
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private Param param;
         private string emailAdr; 
 
         public MainPage()
@@ -23,8 +24,8 @@ namespace GK10._2
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string param = (string)e.Parameter;
-            string[] words = param.Split('#');
+            this.param = (Param)e.Parameter;
+            string[] words = this.param.Text.Split('#');
 
             this.vname.Text = "Vorname: " + words[0];
             this.nname.Text = "Nachname: " + words[1];
@@ -64,7 +65,7 @@ namespace GK10._2
             }
             else if (((string)result[0]).Equals("success"))
             {
-                Frame.Navigate(typeof(Login));
+                Frame.Navigate(typeof(Login), this.param.App);
                 return;
             }
 
@@ -78,7 +79,9 @@ namespace GK10._2
 
         private void Logout(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Login));
+            Frame.Navigate(typeof(Login), this.param.App);
         }
     }
+
+
 }

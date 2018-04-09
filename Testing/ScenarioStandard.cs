@@ -15,10 +15,6 @@
 //******************************************************************************
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium.Appium.Windows;
-using System.Threading;
-using System;
-using System.Threading.Tasks;
 
 namespace Testing
 {
@@ -43,7 +39,6 @@ namespace Testing
             session.FindElementByName("Passwort wiederholen:").Click();
             session.FindElementByName("Passwort wiederholen:").SendKeys("12345");
             session.FindElementByXPath("//Button[@Name='Registrieren']").Click();
-            Thread.Sleep(2000);
 
             Assert.AreEqual("Herzlich Willkommen", session.FindElementByName("Herzlich Willkommen").Text);
         }
@@ -68,7 +63,7 @@ namespace Testing
             session.FindElementByName("Passwort:").Click();
             session.FindElementByName("Passwort:").SendKeys("12345");
             session.FindElementByXPath("//Button[@Name='Login']").Click();
-            Thread.Sleep(2000);
+
             Assert.AreEqual("Herzlich Willkommen", session.FindElementByName("Herzlich Willkommen").Text);
         }
 
@@ -88,6 +83,8 @@ namespace Testing
             Register();
             var splitViewPane = session.FindElementByClassName("SplitViewPane");
             splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+            splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
             session.FindElementByName("Vorname:").Click();
             session.FindElementByName("Vorname:").SendKeys("Marvin");
             session.FindElementByName("Nachname:").Click();
@@ -101,6 +98,53 @@ namespace Testing
             session.FindElementByXPath("//Button[@Name='Registrieren']").Click();
 
             Assert.AreEqual("E-Mail-Adresse bereits im System vorhanden.", session.FindElementByName("E-Mail-Adresse bereits im System vorhanden.").Text);
+        }
+
+        [TestMethod]
+        public void LoginNotExsistingUser()
+        {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+
+            session.FindElementByName("E-Mail:").Click();
+            session.FindElementByName("E-Mail:").SendKeys("abc1@def.com");
+            session.FindElementByName("Passwort:").Click();
+            session.FindElementByName("Passwort:").SendKeys("12345");
+            session.FindElementByXPath("//Button[@Name='Login']").Click();
+            
+            Assert.AreEqual("E-Mail-Adresse im System nicht vorhanden.", session.FindElementByName("E-Mail-Adresse im System nicht vorhanden.").Text);
+        }
+
+        [TestMethod]
+        public void LoginWrongPassword()
+        {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+            splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+
+            session.FindElementByName("E-Mail:").Click();
+            session.FindElementByName("E-Mail:").SendKeys("abc@def.com");
+            session.FindElementByName("Passwort:").Click();
+            session.FindElementByName("Passwort:").SendKeys("123456");
+            session.FindElementByXPath("//Button[@Name='Login']").Click();
+
+            Assert.AreEqual("Passwort ist falsch eingegeben worden.", session.FindElementByName("Passwort ist falsch eingegeben worden.").Text);
+        }
+
+        [TestMethod]
+        public void LoginAndDelete()
+        {
+            var splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton1").Click();
+            splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+            Login();
+
+            splitViewPane = session.FindElementByClassName("SplitViewPane");
+            splitViewPane.FindElementByAccessibilityId("MenuButton2").Click();
+
+            Assert.AreEqual("Login", session.FindElementByName("Login").Text);
         }
 
         [ClassInitialize]
