@@ -69,7 +69,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Content="Beenden" Click="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
-                    <Button Grid.Row="0" Grid.Column="1" Content="Registrieren" Click="RegisterUser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
+                        <Button Grid.Row="0" Grid.Column="1" Content="Registrieren" Click="RegisterUser" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"/>
                     </Grid>
                 <WebView Grid.Row="7" Grid.Column="0" x:Name="errormessages" Height="270" Margin="10,0"/>
             </Grid>
