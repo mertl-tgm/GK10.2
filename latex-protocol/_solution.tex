@@ -1,5 +1,94 @@
 %!TEX root=../protocol.tex	% Optional
 
+\section{Implementierungsumgebung}
+
+Als Implementierungsumgebung wurde die Universelle Windows-Plattform (UWP) gewählt, um den Einblick in eine neue Umgebung zu bekommen.
+
+\subsection{UWP}
+
+Die UWP bietet die Möglichkeit eine Anwendung nur einmal zu entwickeln und auf allen Windows Geräten auszuführen. Dadurch kann die, in dieser Übung, entwickelte App auf vielen unterschiedlichen Geräten verwendet werden, unter anderem auf mobilen Geräten, wie Smartphones und Tablets, auf PCs, HoloLens und viele weitere. Im Fall dieser Übung wurde die Anwendung aber nur mit PCs und mobilen Geräten getestet.
+\\\\
+Um diese Universellen Apps zu ermöglichen, bietet UWP die selbe Kern-API auf allen Geräten an. Dadurch kann auch ein App Store als einheitliche Vertriebsplattform auf unterschiedliche Geräteformen verwendet werden.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/screenshot001}
+	\caption{Darstellung der UWP}
+	\label{fig:screenshot001}
+\end{figure}
+
+Dennoch kann für jedes Gerät spezieller Code geschrieben werden sodass die Anwendung ein unterschiedliche Verhalten je nach Gerät aufweist. Außerdem bietet UWP universelle Steuerelemente, womit eine Benutzeroberfläche entwickelt werden kann, welche sich an die Auflösung, DPI-Dichte, Eingabeart von Geräten anpasst.
+\\\\
+UWP ermöglicht das Entwickeln mittels Visual C++, C\#, Visual Basic und JavaScript, wobei mit den Programmiersprachen Visual C++, C\# und Visual Basic XAML verwendet werden kann um die Benutzeroberfläche zu definieren. \cite{UWPAllgemein}
+\\\\
+XAML beschreiben
+\\\\
+Bei dieser Übung wurde C\# mit XAML zur Umsetzung der Aufgabe verwendet.
+
+\subsection{Visual Studio}
+
+Als am besten geeignetes Tool erweist sich Visual Studio, welches eine optimale Unterstützung für die Entwicklung von UWP Apps bietet. Bei dieser Übung wurde Visual Studio 2017 Enterprise Edition verwendet, wobei darauf zu achten ist, dass zur Verwendung von Emulatoren für andere Geräte, wie zum Beispiel Smartphones, HoloLens, ... , Visual Studio 2015 installiert sein muss. Zwar können die Emulatoren für Visual Studio 2017 gedownloadet werden, diese werden aber im Editor dann nicht angezeigt, wenn Visual Studio 2015 nicht installiert ist.
+\\\\
+Im Visual Studio Installer kann im Reiter "Einzelne Komponenten" Emulatoren für die gewünschte Windows 10 Version gedownloadet werden.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/screenshot002}
+	\caption{Installieren von Emulatoren}
+	\label{fig:screenshot002}
+\end{figure}
+
+In Visual Studio kann anschließend die App auf den gewünschten Gerät ausgeführt werden.
+
+\section{REST - Schnittstelle}
+
+Als REST - Schnittstelle wurde die entwickelte Anwendung für die Übung GK9.3 verwendet. Diese wurde nur leicht angepasst, sodass JSON Objekte gesendet werden.
+
+\subsection{Deployen}
+
+Die Anwendung ist im Unterverzeichnis "Cloud-Datenmanagement-Json" zu finden. Diese kann einfach deployed werden, da es sich um ein mit Maven erstelltes Programm handelt.
+\\\\
+Mittels folgendem Befehl wird die Anwendung auf den Port 8080 lokal gestartet.
+
+\begin{code}{bash}
+	mvn tomcat7:run-war
+\end{code}
+
+\subsection{Verwendung}
+
+Die REST-Schnittstelle bietet 3 Funktionen, das Anmelden eines neuen Benutzers, den Login mit einem bestehenden Account und das Löschen eines Benutzerkontos.
+
+\subsubsection{Registrierung}
+
+Bei der Registrierung muss der Vorname, der Nachname, die E-Mail-Adresse, ein Passwort sowie eine Passwort Wiederholung eingegeben werden. Diese Eingaben werden als Parameter an die Schnittstelle gesendet, nachfolgend ist ein Beispielaufruf zu sehen:
+
+\begin{code}{bash}
+	Inhalt...
+\end{code}
+
+\section{Mobilen Applikationen}
+
+\subsection{UML}
+
+\subsection{Register}
+
+\subsection{Login}
+
+\subsection{Mainpage}
+
+\subsection{Deployen}
+
+\section{Testen}
+
+\subsection{UI Automation}
+
+\subsection{Testaufbau}
+
+
+
+
+\clearpage
+
 \section{Konfiguration}
 \subsection{Optionen}
 \begin{tabularx}{\textwidth}{l X}
