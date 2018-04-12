@@ -2,11 +2,11 @@
 
 \section{Implementierungsumgebung}
 
-Als Implementierungsumgebung wurde die Universelle Windows-Plattform (UWP) gewählt, um den Einblick in eine neue Umgebung zu bekommen.
+Als Implementierungsumgebung wurde die Universelle Windows-Plattform (UWP) gewählt, um einen Einblick in eine neue Umgebung zu bekommen.
 
 \subsection{UWP}
 
-Die UWP bietet die Möglichkeit eine Anwendung nur einmal zu entwickeln und auf allen Windows Geräten auszuführen. Dadurch kann die, in dieser Übung, entwickelte App auf vielen unterschiedlichen Geräten verwendet werden, unter anderem auf mobilen Geräten, wie Smartphones und Tablets, auf PCs, HoloLens und viele weitere. Im Fall dieser Übung wurde die Anwendung aber nur mit PCs und mobilen Geräten getestet.
+Die UWP bietet die Möglichkeit eine Anwendung nur einmal zu entwickeln und auf allen Windows Geräten auszuführen. Dadurch kann die, in dieser Übung, entwickelte App auf vielen unterschiedlichen Geräten verwendet werden, unter anderem auf mobilen Geräten, wie Smartphones und Tablets, PCs, HoloLens und viele weitere. Im Fall dieser Übung wurde die Anwendung aber nur mit PCs und mobilen Geräten getestet.
 \\\\
 Um diese Universellen Apps zu ermöglichen, bietet UWP die selbe Kern-API auf allen Geräten an. Dadurch kann auch ein App Store als einheitliche Vertriebsplattform auf unterschiedliche Geräteformen verwendet werden.
 
@@ -17,17 +17,17 @@ Um diese Universellen Apps zu ermöglichen, bietet UWP die selbe Kern-API auf al
 	\label{fig:screenshot001}
 \end{figure}
 
-Dennoch kann für jedes Gerät spezieller Code geschrieben werden sodass die Anwendung ein unterschiedliche Verhalten je nach Gerät aufweist. Außerdem bietet UWP universelle Steuerelemente, womit eine Benutzeroberfläche entwickelt werden kann, welche sich an die Auflösung, DPI-Dichte, Eingabeart von Geräten anpasst.
+Dennoch kann für jedes Gerät spezieller Code geschrieben werden sodass die Anwendung ein unterschiedliches Verhalten je nach Gerät aufweist. Außerdem bietet UWP universelle Steuerelemente, womit eine Benutzeroberfläche entwickelt werden kann, welche sich an die Auflösung, DPI-Dichte, Eingabeart von Geräten anpasst.
 \\\\
 UWP ermöglicht das Entwickeln mittels Visual C++, C\#, Visual Basic und JavaScript, wobei mit den Programmiersprachen Visual C++, C\# und Visual Basic XAML verwendet werden kann um die Benutzeroberfläche zu definieren. \cite{UWPAllgemein}
 \\\\
-XAML (Extensible Application Markup Language) sind XML Dateien, welche XAML Objekte initialisieren und Eigenschaften von diesen Objekten festlegen. Hierfür gibt es einen eigene XAML-Namespaces, welche festlegen, wie die Datei interpretiert wird. \cite{xamlOverview}
+XAML (Extensible Application Markup Language) sind XML Dateien, welche XAML Objekte initialisieren und Eigenschaften von diesen Objekten festlegen. Hierfür gibt es einen eigene XAML-Namespaces, welcher festlegt, wie die Informationen interpretiert werden. \cite{xamlOverview}
 \\\\
 Bei dieser Übung wurde C\# mit XAML zur Umsetzung der Aufgabe verwendet.
 
 \subsection{Visual Studio}
 
-Als am besten geeignetes Tool erweist sich Visual Studio, welches eine optimale Unterstützung für die Entwicklung von UWP Apps bietet. Bei dieser Übung wurde Visual Studio 2017 Enterprise Edition verwendet, wobei darauf zu achten ist, dass zur Verwendung von Emulatoren für andere Geräte, wie zum Beispiel Smartphones, HoloLens, ... , Visual Studio 2015 installiert sein muss. Zwar können die Emulatoren für Visual Studio 2017 gedownloadet werden, diese werden aber im Editor dann nicht angezeigt, wenn Visual Studio 2015 nicht installiert ist.
+Als am besten geeignete Tool erweist sich Visual Studio, welches eine optimale Unterstützung für die Entwicklung von UWP Apps bietet. Bei dieser Übung wurde Visual Studio 2017 Enterprise Edition verwendet, wobei darauf zu achten ist, dass zur Verwendung von Emulatoren für andere Geräte, wie zum Beispiel Smartphones, HoloLens, ... , Visual Studio 2015 installiert sein muss. Zwar können die Emulatoren für Visual Studio 2017 gedownloadet werden, diese werden aber im Editor dann nicht angezeigt, wenn Visual Studio 2015 nicht installiert ist.
 \\\\
 Im Visual Studio Installer kann im Reiter ''Einzelne Komponenten'' Emulatoren für die gewünschte Windows 10 Version gedownloadet werden.
 
@@ -46,7 +46,7 @@ Als REST - Schnittstelle wurde die entwickelte Anwendung für die Übung GK9.3 v
 
 \subsection{Deployen}
 
-Die Anwendung ist im Unterverzeichnis "Cloud-Datenmanagement-Json" zu finden. Diese kann einfach deployed werden, da es sich um ein mit Maven erstelltes Programm handelt.
+Die Anwendung ist im Unterverzeichnis ''Cloud-Datenmanagement-Json'' zu finden. Diese kann einfach deployed werden, da es sich um ein mit Maven verwaltetes Programm handelt.
 \\\\
 Mittels folgendem Befehl wird die Anwendung auf den Port 8080 lokal gestartet.
 
@@ -59,15 +59,21 @@ Für diese Übung wurde das Projekt auf einem Server, welcher unter der IP-Adres
 \subsection{Verwendung}
 
 Die REST-Schnittstelle bietet 3 Funktionen, das Anmelden eines neuen Benutzers, den Login mit einem bestehenden Account und das Löschen eines Benutzerkontos.
-
+\\\\
 Bei der Registrierung muss der Vorname, der Nachname, die E-Mail-Adresse, ein Passwort sowie eine Passwort Wiederholung eingegeben werden. Diese Eingaben werden als Parameter an die Schnittstelle gesendet, nachfolgend ist ein Beispielaufruf zu sehen:
 
 \begin{code}{bash}
 	http://37.252.185.24:8080/ertl/register?vname=Marvin&nname=Ertl&email=mertl@student.tgm.ac.at&pw=abc123&pwagain=abc123
 \end{code}
 
-Die Schnittstellen für das Löschen und Einloggen von Benutzer ist ähnlich aufgebaut, beim Einloggen muss die E-Mail sowie das Passwort als Parameter mitgesendet werden und beim Löschen muss die E-Mail-Adresse mitgesendet werden.
-\\\\
+Die Schnittstellen für das Löschen und Einloggen von Benutzer sind ähnlich aufgebaut, beim Einloggen muss die E-Mail sowie das Passwort als Parameter mitgesendet werden und beim Löschen muss die E-Mail-Adresse mitgesendet werden.
+
+\begin{code}{bash}
+	http://37.252.185.24:8080/ertl/login?email=mertl@student.tgm.ac.at&pw=abc123
+	
+	http://37.252.185.24:8080/ertl/delete?email=mertl@student.tgm.ac.at
+\end{code}
+
 Die Rückgabe ist dabei immer ein JSON Objekt, welches aus einem Array mit 2 Werten besteht. Der erste Wert gibt an, ob der Befehl erfolgreich (success) oder nicht erfolgreich (error) war. Der zweite Wert gibt bei einem success weitere Informationen mit, bei einem error wird die Fehlermeldung mitgeliefert.
 \\\\
 Nachfolgend ist das Antwort JSON, welches bei einer erfolgreichen Registrierung zurückgeliefert wird.
@@ -76,9 +82,9 @@ Nachfolgend ist das Antwort JSON, welches bei einer erfolgreichen Registrierung 
 	["success","Marvin#Ertl#mertl@student.tgm.ac.at"]
 \end{code}
 
-\section{Mobilen Applikationen}
+\section{Mobile Applikation}
 
-Zum Entwickeln der Anwendung wurde in Visual Studio ein UWP Projekt erstellt, diese beinhaltet bereits die App Klasse, welche sich um das Starten/Beenden/Pausieren der Anwendung kümmert. Diese Klasse wird allen drei weiteren Klassen übergeben. Die App besteht insgesamt aus drei Ansichten, den Register Screen, dem Login Screen und der MainPage, diese Ansichten erben alle von der Page Klasse. Erfolgreiches registrieren sowie einloggen führt zur MainPage, auf welcher der Benutzer begrüßt wird und sein Vorname, Nachname sowie seine E-Mail-Adresse anzeigt. \cite{uwptutorial}
+Zum Entwickeln der Anwendung wurde in Visual Studio ein UWP Projekt erstellt, dieses beinhaltet bereits die App Klasse, welche sich um das Starten/Beenden/Pausieren der Anwendung kümmert. Diese Klasse wird allen drei weiteren Klassen übergeben. Die App besteht insgesamt aus drei Ansichten, den Register Page, dem Login Page und der MainPage, diese Ansichten erben alle von der ''Page'' Klasse. Erfolgreiches registrieren sowie einloggen führt zur MainPage, auf welcher der Benutzer begrüßt wird und sein Vorname, Nachname sowie seine E-Mail-Adresse anzeigt. \cite{uwptutorial}
 \\\\
 Dabei zu beachten ist, dass jede Ansicht 2 Dateien hat, eine XAML Datei, welche die Benutzeroberfläche definiert und einer C\# Datei, welche den User Input verwaltet sowie die Ansicht.
 \\\\
@@ -108,19 +114,17 @@ protected override void OnNavigatedTo(NavigationEventArgs e)
 \subsection{Register}
 
 Als erstes wurde die Registrierungsansicht mittels den Designer in Visual Studio erstellt.
+\\\\
+Dieser erlaubt es einfach aus der Toolbox Objekte mittels Drag\&Drop eine Benutzeroberfläche zu gestalten. Wobei jederzeit zwischen den Skalierung auf unterschiedlichen Geräten gewechselt werden kann. Somit kann überprüft werden, wie die Benutzeroberfläche auf diesen Geräten ausschauen würde.
 
-\begin{minipage}[h]{0.4\textwidth} 
-	 Dieser erlaubt es einfach aus der Toolbox Objekte mittels Drag\&Drop eine Benutzeroberfläche zu gestalten. Wobei jederzeit zwischen den Skalierung auf unterschiedlichen Geräten gewechselt werden kann. Somit kann überprüft werden, wie die Benutzeroberfläche auf diesen Geräten ausschauen würde.
-\end{minipage}
-\begin{minipage}[h]{0.6\textwidth}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.45\linewidth]{images/screenshot004}
-		\caption{Auswahl der Skalierung}
-		\label{fig:screenshot004}
-	\end{figure}
-\end{minipage}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\linewidth]{images/screenshot004}
+	\caption{Auswahl der Skalierung}
+	\label{fig:screenshot004}
+\end{figure}
 
+\clearpage
 
 Die erstellte Oberfläche sieht im Designer wie folgt aus:
 
@@ -186,7 +190,7 @@ Nun wird ein Request an den Server mit den Parameter gesendet und auf eine Antwo
 
 Als Antwort wird ein JSON Objekt zurückgesendet, diese ist wie bereits oben beschrieben definiert. Zum Verarbeiten des Objektes wurde auf die Library Newtonsoft.Json zurückgegriffen, diese kann einfach mittels dem NuGet Package Manager installiert werden.
 \\\\
-Als erstes wird unterschieden ob es ein success oder error war, war die Registrierung erfolgreich wird der Benutzer auf die MainPage weitergeleitet.
+Als erstes wird unterschieden ob es ein success oder error war, war die Registrierung erfolgreich wird der Benutzer auf die MainPage weitergeleitet, falls ein Fehler aufgetreten ist, wird der Benutzer darüber informiert.
 
 \begin{code}{csharp}
 Newtonsoft.Json.Linq.JArray result = (Newtonsoft.Json.Linq.JArray)JsonConvert.DeserializeObject(response);
@@ -207,9 +211,9 @@ else if (((string)result[0]).Equals("success"))
 
 \subsection{Login}
 
-Beim der Login Ansicht wurde nach dem selbem Prinzip vorgegangen, nur wird beim Anmelden nur das Passwort und die E-Mail-Adresse benötigt. Wie jede Ansicht bietet auch diese ein Menü, diese kann über die drei horizontalen Balken erweitert werden, sodass neben den Buttons auch noch die Bezeichnungen stehen. Diese Button ermöglichen das Wechseln zwischen der Registrierung und dem Login, sowie einen Button zum Beenden der Anwendung. 
+Bei der Login Ansicht wurde nach dem selbem Prinzip vorgegangen, nur wird beim Anmelden nur das Passwort und die E-Mail-Adresse benötigt. Wie jede Ansicht bietet auch diese ein Menü, diese kann über die drei horizontalen Balken erweitert werden, sodass neben den Buttons auch noch die Bezeichnungen stehen. Diese Button ermöglichen das Wechseln zwischen der Registrierung und dem Login, sowie einen Button zum Beenden der Anwendung. 
 \\\\
-Bei Fehlermeldung werden diese unterhalb der Buttons in einer WebView dargestellt. Mittels der Methode ''NavigateToString'' kann der Text in der View angezeigt werden, wobei dieser als HTML Code interpretiert wird. Dies wurde gewählt, da mehrere Fehlermeldung von Server nur mittels ''<br>'' getrennt zurückgesendet werden.
+Bei einer Fehlermeldung wird diese unterhalb der Buttons in einer WebView dargestellt. Mittels der Methode ''NavigateToString'' kann der Text in der View angezeigt werden, wobei dieser als HTML Code interpretiert wird. Dies wurde gewählt, da mehrere Fehlermeldung von Server nur mittels ''<br>'' getrennt zurückgesendet werden.
 
 \begin{code}{csharp}
 	this.errormessages.NavigateToString("Fehlermeldung");
@@ -250,7 +254,7 @@ Dies sieht dann mit einem erfolgreichen Login wie folgt aus:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.4\linewidth]{images/screenshot006}
+	\includegraphics[width=0.3\linewidth]{images/screenshot006}
 	\caption{Ausführen der Anwendung im Emulator}
 	\label{fig:screenshot006}
 \end{figure}
@@ -262,7 +266,7 @@ Nach einigem Testen kann nun die Anwendung deployed werden, hierfür muss die Ap
 \\\\
 Abschließend muss noch die Plattform ausgewählt werden, auf welcher die App läuft für Smartphones wird ARM benötigt für Desktop x86 oder x64. Es können aber auch alle Plattformen auf einmal ausgewählt werden.
 \\\\
-Nun erhält man einen Ordner mit einigen Dateien, die wichtigste davon ist die Datei mit der Endung ''.appxbundle'', dabei handelt es sich um die Installationsdatei. \cite{packaging} Um die Entwicklerversion zu installieren, gibt es ein PowerShell Script, welches ausgeführt werden muss. Ansonsten kann mittels einem Doppelklick auf die Datei ''.appxbundle'' wird die Installation gestartet, dies sieht wie folgt aus: 
+Nun erhält man einen Ordner mit einigen Dateien, die wichtigste davon ist die Datei mit der Endung ''.appxbundle'', dabei handelt es sich um die Installationsdatei. \cite{packaging} Um die Entwicklerversion zu installieren, gibt es ein PowerShell Script, welches ausgeführt werden muss. Ansonsten kann mittels einem Doppelklick auf die Datei ''.appxbundle'' die Installation gestartet werden, dies sieht wie folgt aus: 
 
 \begin{figure}[H]
 	\centering
@@ -275,17 +279,17 @@ Darauf zu achten ist, dass unter den Windows Einstellungen in der Kategorie ''F�
 
 \section{Testen}
 
-Um das Testen der Anwendung möglichst einfach zu machen und Regressiv zu wiederholen, wurde auf UI Automation von UWP Apps gesetzt. Dafür muss als erstes der WinAppDriver installiert werden. \cite{WinAppDriver}
+Um das Testen der Anwendung möglichst einfach zu machen und Regressiv zu wiederholen, wurde auf UI Automation von UWP Apps gesetzt. Dafür muss als erstes der WinAppDriver installiert werden. Dieser muss während des Testen laufen. \cite{WinAppDriver} 
 
 \subsection{UI Automation}
 
-Microsoft UI Automation is ein Framework um auf Elemente am Desktop zuzugreifen um die Benutzeroberfläche zu bedienen. Aus diesem Grund wurde ein zweites Projekt erstellt, welches sich um das Testen der Anwendung kümmert. Mittels diesem Framework können nicht nur eigene Anwendungen getesten werden, sondern auch Anwendungen von Drittanbieter oder Windows eigene Anwendungen. \cite{uiautooverview}
+Microsoft UI Automation ist ein Framework um auf Elemente am Desktop zuzugreifen um die Benutzeroberfläche zu bedienen. Aus diesem Grund wurde ein zweites Projekt erstellt, welches sich um das Testen der Anwendung kümmert. Mittels diesem Framework können nicht nur eigene Anwendungen getesten werden, sondern auch Anwendungen von Drittanbieter oder Windows eigene Anwendungen. \cite{uiautooverview}
 \\\\
-Im Repository des Win App Drivers gibt es auch einige Beispiel, auf Basis des Beispiels für den Windows Rechner wurde eigene Testfälle entwickelt.
+Im Repository des Win App Drivers gibt es auch einige Beispiel, auf Basis des Beispiels für den Windows Rechner wurde eigene Testfälle entwickelt. \cite{WinAppDriver}
 
 \subsection{Testaufbau}
 
-Das Projekt besteht aus 2 Klassen, eine Klasse GKSession, diese startet die Anwendung und die Klasse ScenarioStandard beinhaltet die Testfälle.
+Das Projekt besteht aus zwei Klassen, eine Klasse GKSession, diese startet die Anwendung und die Klasse ScenarioStandard beinhaltet die Testfälle.
 \\\\
 Um die Anwendung starten zu können, muss die App ID der Anwendung gefunden werden, diese kann in den App Package Informationen gefunden werden. \cite{appid} Nun kann die Anwendung wie folgt gestartet werden und eine Session erstellt werden:
 
@@ -313,8 +317,6 @@ Nun kann in der Scenario Klasse Testfälle definiert werden, diese müssen mitte
 	
 	Assert.AreEqual("Herzlich Willkommen", session.FindElementByName("Herzlich Willkommen").Text);
 \end{code}
-
-
 
 \begin{minipage}[h]{0.4\textwidth}
 	Anschließend wurde mit einigen Testfällen überprüft ob die Anwendung richtig funktioniert bzw. ob bei einem erneuten Ausführen die Testfälle auch erfolgreich sind. Es wurde überprüft ob sich der Benutzer Registrieren/Anmelden kann und ob der Account gelöscht werden kann. Weiters wurden einige Fehlermeldungen überprüft wie zum Beispiel ein falsche Passwort, einen Benutzer mit bereits vorhanden E-Mail-Adresse registrieren. 
