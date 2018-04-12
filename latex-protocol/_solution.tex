@@ -207,7 +207,15 @@ else if (((string)result[0]).Equals("success"))
 
 \subsection{Login}
 
-Beim der Login Ansicht wurde nach dem selbem Prinzip vorgegangen, nur wird beim Anmelden nur das Passwort und die E-Mail-Adresse benötigt. Wie jede Ansicht bietet auch diese ein Menü, diese kann über die drei horizontalen Balken erweitert werden, sodass neben den Buttons auch noch die Bezeichnungen stehen. Diese Button ermöglichen das Wechseln zwischen der Registrierung und dem Login, sowie einen Button zum Beenden der Anwendung. Dies sieht wie folgt aus:
+Beim der Login Ansicht wurde nach dem selbem Prinzip vorgegangen, nur wird beim Anmelden nur das Passwort und die E-Mail-Adresse benötigt. Wie jede Ansicht bietet auch diese ein Menü, diese kann über die drei horizontalen Balken erweitert werden, sodass neben den Buttons auch noch die Bezeichnungen stehen. Diese Button ermöglichen das Wechseln zwischen der Registrierung und dem Login, sowie einen Button zum Beenden der Anwendung. 
+\\\\
+Bei Fehlermeldung werden diese unterhalb der Buttons in einer WebView dargestellt. Mittels der Methode ''NavigateToString'' kann der Text in der View angezeigt werden, wobei dieser als HTML Code interpretiert wird. Dies wurde gewählt, da mehrere Fehlermeldung von Server nur mittels ''<br>'' getrennt zurückgesendet werden.
+
+\begin{code}{csharp}
+	this.errormessages.NavigateToString("Fehlermeldung");
+\end{code}
+
+Dies sieht wie folgt aus:
 
 \begin{figure}[H]
 	\centering
@@ -229,7 +237,7 @@ Ansonsten ist diese Ansicht gleich aufgebaut, bei der Anfrage an die REST-Schnit
 Ist die Ansicht, welcher der Benutzer bei einer erfolgreichen Registrierung oder Anmeldung sieht. Wurde ein Emulator und Visual Studio 2015 installiert, hat der Entwickler auch die Möglichkeit die Anwendung in einem Emulator zu starten.
 \\\\
 Die MainPage hat eine andere Menubar im Vergleich zum Login oder Registrieren. In dieser hat man die Möglichkeit sich abzumelden, den Account zu löschen oder die Anwendung zu beenden.
-
+\\\\
 Hierfür muss ein Request an die Methode ''delete'' gesendet werden, welche als Parameter die E-Mail-Adresse des Accountes hat.
 
 \begin{code}{csharp}
@@ -250,16 +258,77 @@ Dies sieht dann mit einem erfolgreichen Login wie folgt aus:
 
 \subsection{Deployen}
 
-\cite{packaging}
+Nach einigem Testen kann nun die Anwendung deployed werden, hierfür muss die App als erstes gepackt werden. Dies geschieht über einen Rechtsklick auf das Projekt in Visual Studio. Dort gibt es die Auswahlmöglichkeit ''Store'' mit den Unterpunkt ''Create App Package''. Wurde dies ausgewählt werden noch einige Informationen wie zum Beispiel Version, Name, verlangt. Anschließend kann entschieden werden, ob die App gleich direkt in den Store geladen wird, in diesem Fall wurde dies nicht gemacht.
+\\\\
+Abschließend muss noch die Plattform ausgewählt werden, auf welcher die App läuft für Smartphones wird ARM benötigt für Desktop x86 oder x64. Es können aber auch alle Plattformen auf einmal ausgewählt werden.
+\\\\
+Nun erhält man einen Ordner mit einigen Dateien, die wichtigste davon ist die Datei mit der Endung ''.appxbundle'', dabei handelt es sich um die Installationsdatei. \cite{packaging} Um die Entwicklerversion zu installieren, gibt es ein PowerShell Script, welches ausgeführt werden muss. Ansonsten kann mittels einem Doppelklick auf die Datei ''.appxbundle'' wird die Installation gestartet, dies sieht wie folgt aus: 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/screenshot007}
+	\caption{Installieren einer App}
+	\label{fig:screenshot007}
+\end{figure}
+
+Darauf zu achten ist, dass unter den Windows Einstellungen in der Kategorie ''Für Entwickler'' erlaubt wird, Apps aus anderen Quellen außer dem App-Store zu erlauben.
 
 \section{Testen}
 
+Um das Testen der Anwendung möglichst einfach zu machen und Regressiv zu wiederholen, wurde auf UI Automation von UWP Apps gesetzt. Dafür muss als erstes der WinAppDriver installiert werden. \cite{WinAppDriver}
+
 \subsection{UI Automation}
 
-\cite{uiautooverview}
-
-\cite{WinAppDriver}
+Microsoft UI Automation is ein Framework um auf Elemente am Desktop zuzugreifen um die Benutzeroberfläche zu bedienen. Aus diesem Grund wurde ein zweites Projekt erstellt, welches sich um das Testen der Anwendung kümmert. Mittels diesem Framework können nicht nur eigene Anwendungen getesten werden, sondern auch Anwendungen von Drittanbieter oder Windows eigene Anwendungen. \cite{uiautooverview}
+\\\\
+Im Repository des Win App Drivers gibt es auch einige Beispiel, auf Basis des Beispiels für den Windows Rechner wurde eigene Testfälle entwickelt.
 
 \subsection{Testaufbau}
 
-App ID \cite{appid}
+Das Projekt besteht aus 2 Klassen, eine Klasse GKSession, diese startet die Anwendung und die Klasse ScenarioStandard beinhaltet die Testfälle.
+\\\\
+Um die Anwendung starten zu können, muss die App ID der Anwendung gefunden werden, diese kann in den App Package Informationen gefunden werden. \cite{appid} Nun kann die Anwendung wie folgt gestartet werden und eine Session erstellt werden:
+
+\begin{code}{csharp}
+                DesiredCapabilities appCapabilities = new DesiredCapabilities();
+appCapabilities.SetCapability("app", AppId);
+appCapabilities.SetCapability("deviceName", "WindowsPC");
+session = new WindowsDriver<WindowsElement>(new Uri(WindowsApplicationDriverUrl), appCapabilities);
+\end{code}
+
+Nun kann in der Scenario Klasse Testfälle definiert werden, diese müssen mittels ''[TestMethod]'' gekennzeichnet sein. Mittels der Methode ''FindElementByName'' können nun die Buttons bzw. Eingabefelder gefunden werden und daraufgeklickt bzw. Werte eingegeben werden. Schlussendlich wird überprüft, ob nun ''Herzlich Willkommen'' in der Anwendung angezeigt wird.
+
+\begin{code}{csharp}
+	session.FindElementByName("Vorname:").Click();
+	session.FindElementByName("Vorname:").SendKeys("Marvin");
+	session.FindElementByName("Nachname:").Click();
+	session.FindElementByName("Nachname:").SendKeys("Ertl");
+	session.FindElementByName("E-Mail:").Click();
+	session.FindElementByName("E-Mail:").SendKeys("abc@def.com");
+	session.FindElementByName("Passwort:").Click();
+	session.FindElementByName("Passwort:").SendKeys("12345");
+	session.FindElementByName("Passwort wiederholen:").Click();
+	session.FindElementByName("Passwort wiederholen:").SendKeys("12345");
+	session.FindElementByXPath("//Button[@Name='Registrieren']").Click();
+	
+	Assert.AreEqual("Herzlich Willkommen", session.FindElementByName("Herzlich Willkommen").Text);
+\end{code}
+
+
+
+\begin{minipage}[h]{0.4\textwidth}
+	Anschließend wurde mit einigen Testfällen überprüft ob die Anwendung richtig funktioniert bzw. ob bei einem erneuten Ausführen die Testfälle auch erfolgreich sind. Es wurde überprüft ob sich der Benutzer Registrieren/Anmelden kann und ob der Account gelöscht werden kann. Weiters wurden einige Fehlermeldungen überprüft wie zum Beispiel ein falsche Passwort, einen Benutzer mit bereits vorhanden E-Mail-Adresse registrieren. 
+	\\\\ 
+	Diese Test könnten nun auch mittels einem Continuous  Integration Service verbunden werden, sodass bei jedem Build automatisch diese Test ausgeführt werden. Das Ausführen der Testfälle könnte auch von einem anderen Server aus gestreamt werden.
+\end{minipage}
+\begin{minipage}[h]{0.6\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{images/screenshot008}
+		\caption{Test Explorer in Visual Studio}
+		\label{fig:screenshot008}
+	\end{figure}
+\end{minipage}
+
+
+
